@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use App\Poll;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -24,6 +26,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+
+		$polls = Poll::where('owner_id', '=', Auth::id())->get();
+
+        return view('home')->with('polls', $polls);
     }
 }
