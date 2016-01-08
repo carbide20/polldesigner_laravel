@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+
     /**
      * The attributes that are mass assignable.
      *
@@ -15,6 +16,7 @@ class User extends Authenticatable
         'name', 'email', 'password',
     ];
 
+
     /**
      * The attributes excluded from the model's JSON form.
      *
@@ -23,4 +25,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+	/**
+	 * Gets all the polls belonging to this user
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function polls() {
+		return $this->hasMany('App\Poll');
+	}
+
 }
