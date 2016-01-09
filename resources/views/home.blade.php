@@ -52,11 +52,13 @@
                         <tr>
                             <td>title</td>
                             <td>description</td>
+                            <td>actions</td>
                         </tr>
                         @foreach($polls as $poll)
                             <tr>
                                 <td>{{ $poll->title }}</td>
                                 <td>{{ $poll->description }}</td>
+                                <td><a href="/poll/delete/{{ $poll->id }}">delete</a></td>
                             </tr>
                         @endforeach
                         </table>

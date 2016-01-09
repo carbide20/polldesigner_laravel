@@ -9,6 +9,7 @@ use Auth;
 
 class HomeController extends Controller
 {
+
     /**
      * Create a new controller instance.
      *

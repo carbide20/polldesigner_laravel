@@ -25,15 +25,17 @@ Route::get('/', function () {
 | kernel and includes session state, CSRF protection, and more.
 |
 */
-
-Route::group(['middleware' => ['web']], function () {
-    //
-});
-
 Route::group(['middleware' => 'web'], function () {
+
     Route::auth();
 
+	// User's homepage
     Route::get('/home', 'HomeController@index');
 
+	// Poll creation
 	Route::post('/poll/create', 'PollController@create');
+
+	// Poll deletion
+	Route::get('/poll/delete/{id}', 'PollController@delete');
+
 });

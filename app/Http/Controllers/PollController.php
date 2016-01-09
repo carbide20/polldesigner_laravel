@@ -50,4 +50,32 @@ class PollController extends Controller
 		return Redirect::to('/home')->with('error', 'Please fill out all required fields and try again');
 
 	}
+
+
+	public function delete($id) {
+
+		// Make sure this person is logged in
+		if (Auth::check()) {
+
+			// Look up the poll
+			$poll = Poll::find($id);
+
+			// Compare the poll owner to this user to ensure it is owned by them
+			if ($poll && $poll->owner_id == Auth::id()) {
+
+				// Delete the poll
+				$poll->delete();
+
+				// Redirect the user back to their homepage with a success message
+				return Redirect::to('/home')->with('success', 'The course was deleted successfully');
+
+			}
+
+		}
+
+		// Redirect the user back to their homepage with a success message
+		return Redirect::to('/home')->with('error', 'Please ensure you are logged in and try again');
+
+	}
+
 }
