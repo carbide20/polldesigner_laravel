@@ -38,4 +38,10 @@ Route::group(['middleware' => 'web'], function () {
 	// Poll deletion
 	Route::get('/poll/delete/{id}', 'PollController@delete');
 
+	// Poll editing
+	Route::get('/poll/edit/{id}', 'PollController@edit');
+
+	// Poll update
+	Route::post('/poll/update/{id}', 'PollController@update');
+
 });

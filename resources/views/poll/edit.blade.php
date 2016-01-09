@@ -19,12 +19,12 @@
             @endif
 
             <div class="panel panel-default">
-                <div class="panel-heading">Create New Poll</div>
+                <div class="panel-heading">Edit Poll</div>
 
                     <div class="panel-body">
 
 
-                        {{ Form::open(array('action' => array('PollController@create', Auth::id()))) }}
+                        {{ Form::model($poll, array('action' => array('PollController@update', $poll->id))) }}
 
                             <!-- course title -->
                             {{ Form::label('title', 'Name Your Poll:') }}<br />
@@ -35,36 +35,12 @@
                             {{ Form::textarea('description') }}<br />
 
 
-                            {{ Form::submit('Create Poll') }}
+                            {{ Form::submit('Save Poll') }}
 
                         {{ Form::close() }}
                     </div>
                 </div>
 
-
-
-                <div class="panel panel-default">
-                    <div class="panel-heading">My Polls</div>
-
-                    <div class="panel-body">
-
-                        <table border="1">
-                        <tr>
-                            <td>title</td>
-                            <td>description</td>
-                            <td>actions</td>
-                        </tr>
-                        @foreach($polls as $poll)
-                            <tr>
-                                <td>{{ $poll->title }}</td>
-                                <td>{{ $poll->description }}</td>
-                                <td><a href="/poll/edit/{{ $poll->id }}">edit</a> | <a href="/poll/delete/{{ $poll->id }}">delete</a></td>
-                            </tr>
-                        @endforeach
-                        </table>
-
-                    </div>
-                </div>
 
             </div>
 

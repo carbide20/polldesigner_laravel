@@ -28,7 +28,7 @@ class PollController extends Controller
 				// Pull the formdata
 				$formdata = $request->all();
 
-				// Creat a new poll object
+				// Create a new poll object
 				$poll = new Poll;
 
 				// Save the formdata to the new poll object
@@ -40,7 +40,7 @@ class PollController extends Controller
 				$poll->save();
 
 				// Redirect the user back to their homepage with a success message
-				return Redirect::to('/home')->with('success', 'Course created successfully');
+				return Redirect::to('/home')->with('success', 'Poll created successfully');
 
 			}
 
@@ -67,7 +67,7 @@ class PollController extends Controller
 				$poll->delete();
 
 				// Redirect the user back to their homepage with a success message
-				return Redirect::to('/home')->with('success', 'The course was deleted successfully');
+				return Redirect::to('/home')->with('success', 'The Poll was deleted successfully');
 
 			}
 
@@ -75,6 +75,71 @@ class PollController extends Controller
 
 		// Redirect the user back to their homepage with a success message
 		return Redirect::to('/home')->with('error', 'Please ensure you are logged in and try again');
+
+	}
+
+
+	public function edit($id) {
+
+		// Make sure the user is still logged in, and we have a poll ID to edit
+		if (Auth::check() && $id > 0) {
+
+			// Look up the poll being edited
+			$poll = Poll::find($id);
+
+			// Ensure that this poll exists, and belongs to this user
+			if ($poll && $poll->owner_id == Auth::id()) {
+
+				return view('poll.edit')->with('poll', $poll);
+
+			}
+
+		}
+
+		// Redirect the user back to their homepage with a success message
+		return Redirect::to('/home')->with('success', 'Poll updated successfully');
+
+
+	}
+
+
+	public function update(Request $request, $id) {
+
+
+		// Ensure that they filled out the form properly
+		if ($request->has('title')) {
+
+			// Auth check, to make sure they are still valid
+			if (Auth::check()) {
+
+				// Look up the poll being edited
+				$poll = Poll::find($id);
+
+				// Ensure that this poll exists, and belongs to this user
+				if ($poll && $poll->owner_id == Auth::id()) {
+
+					// Pull the formdata
+					$formdata = $request->all();
+
+					// Save the formdata to the new poll object
+					$poll->title = $formdata['title'];
+					$poll->description = $formdata['description'];
+					$poll->owner_id = Auth::id();
+
+					// Save the poll object
+					$poll->save();
+
+					// Redirect the user back to their homepage with a success message
+					return Redirect::to('/home')->with('success', 'Poll updated successfully');
+
+				}
+
+			}
+
+		}
+
+		// Redirect the user back to their homepage with a failure message
+		return Redirect::to('/home')->with('error', 'Please fill out all required fields and try again');
 
 	}
 
