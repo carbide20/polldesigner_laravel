@@ -35,6 +35,28 @@
                             {{ Form::textarea('description') }}<br />
 
 
+                            <!-- question 1 -->
+                            {{ Form::label('question1', 'Question #1:') }}<br />
+                            {{ Form::text('question1') }} ?<br />
+
+
+                            <ul>
+
+                                <li>
+                                <!-- q1 a1 -->
+                                {{ Form::label('question1choice1', 'Q1 Answer #1:') }}<br />
+                                {{ Form::text('question1choice1') }}<br />
+                                </li>
+
+                                <li>
+                                <!-- q1 a2 -->
+                                {{ Form::label('question1choice2', 'Q1 Answer #2:') }}<br />
+                                {{ Form::text('question1choice2') }}<br />
+                                </li>
+
+                            </ul>
+
+
                             {{ Form::submit('Create Poll') }}
 
                         {{ Form::close() }}
