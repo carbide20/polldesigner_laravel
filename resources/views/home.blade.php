@@ -26,38 +26,55 @@
 
                         {{ Form::open(array('action' => array('PollController@create', Auth::id()))) }}
 
-                            <!-- course title -->
-                            {{ Form::label('title', 'Name Your Poll:') }}<br />
-                            {{ Form::text('title') }}<br />
+                            <div class="form-group" id="general">
 
-                            <!-- course description -->
-                            {{ Form::label('description', 'Optional Description:') }}<br />
-                            {{ Form::textarea('description') }}<br />
+                                <!-- course title -->
+                                {{ Form::label('title', 'Name Your Poll:') }}<br />
+                                {{ Form::text('title') }}<br />
 
+                                <!-- course description -->
+                                {{ Form::label('description', 'Optional Description:') }}<br />
+                                {{ Form::textarea('description') }}<br />
 
-                            <!-- question 1 -->
-                            {{ Form::label('question1', 'Question #1:') }}<br />
-                            {{ Form::text('question1') }} ?<br />
+                            </div>
 
+                            <div class="form-group" id="questions">
 
-                            <ul>
+                                <hr />
 
-                                <li>
-                                <!-- q1 a1 -->
-                                {{ Form::label('question1choice1', 'Q1 Answer #1:') }}<br />
-                                {{ Form::text('question1choice1') }}<br />
-                                </li>
-
-                                <li>
-                                <!-- q1 a2 -->
-                                {{ Form::label('question1choice2', 'Q1 Answer #2:') }}<br />
-                                {{ Form::text('question1choice2') }}<br />
-                                </li>
-
-                            </ul>
+                                <!-- question 1 -->
+                                {{ Form::label('question1', 'Question #1:') }}<br />
+                                {{ Form::text('question1', '', array('class' => 'question')) }} ?<br />
 
 
-                            {{ Form::submit('Create Poll') }}
+                                <ul>
+
+                                    <li>
+                                    <!-- q1 a1 -->
+                                    {{ Form::label('question1choice1', 'Q1 Answer #1:') }}<br />
+                                    {{ Form::text('question1choice1') }}<br />
+                                    </li>
+
+                                    <li>
+                                    <!-- q1 a2 -->
+                                    {{ Form::label('question1choice2', 'Q1 Answer #2:') }}<br />
+                                    {{ Form::text('question1choice2') }}<br />
+                                    </li>
+
+                                    <li>
+                                        {{ Form::button('Add Answer', array('id' => 'addAnswer')) }}
+                                    </li>
+
+                                </ul>
+
+
+                                {{ Form::button('Add Question', array('id' => 'addQuestion')) }}
+
+                            </div>
+
+                            <div class="form-group" id="submit">
+                                {{ Form::submit('Create Poll') }}
+                            </div>
 
                         {{ Form::close() }}
                     </div>
