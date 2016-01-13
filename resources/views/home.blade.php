@@ -44,7 +44,7 @@
 
                                 <!-- question 1 -->
                                 {{ Form::label('question1', 'Question #1:') }}<br />
-                                {{ Form::text('question1', '', array('class' => 'question')) }} ?<br />
+                                {{ Form::text('question1', '', array('class' => 'question')) }}<br />
 
 
                                 <ul>
