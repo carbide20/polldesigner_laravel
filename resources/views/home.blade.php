@@ -55,14 +55,9 @@
                                     {{ Form::text('question1choice1') }}<br />
                                     </li>
 
-                                    <li>
-                                    <!-- q1 a2 -->
-                                    {{ Form::label('question1choice2', 'Q1 Answer #2:') }}<br />
-                                    {{ Form::text('question1choice2') }}<br />
-                                    </li>
 
                                     <li>
-                                        {{ Form::button('Add Answer', array('id' => 'addAnswer')) }}
+                                        {{ Form::button('Add Answer', array('class' => 'addAnswer')) }}
                                     </li>
 
                                 </ul>
@@ -111,4 +106,7 @@
 
     </div>
 </div>
+
+<script src="js/pollForm.js"></script>
+
 @endsection

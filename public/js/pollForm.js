@@ -11,9 +11,6 @@ document.getElementById("addQuestion").addEventListener("click", function() {
 	// Loop through the questions
 	for (var i = 0; i < questionElement.length; i++) {
 
-		// TODO: Add listeners to the add answer buttons
-		//addAnswerElement[i].addEventListener('click', addAnswer, false);
-
 		lastQuestion = questionElement[i].name;
 
 	}
@@ -91,6 +88,20 @@ document.getElementById("addQuestion").addEventListener("click", function() {
 		// Attach the input to the <li>
 		li.appendChild(input);
 
+	// Create the answer <li>
+	var answerLi = document.createElement('li');
+
+		// Attach the <li> to the <ul>
+		newAnswer.appendChild(answerLi);
+
+	// Create the answer input box
+	var addAnswer = document.createElement('button');
+	addAnswer.class = 'addAnswer';
+	addAnswer.innerHTML = 'Add Answer';
+
+		// Attach the input to the <li>
+		answerLi.appendChild(addAnswer);
+
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -118,3 +129,25 @@ document.getElementById("addQuestion").addEventListener("click", function() {
 	questions.appendChild(clearfix);
 
 });
+
+
+
+
+
+// Get all question items
+var addAnswerElement = document.getElementsByClassName("addAnswer");
+
+// Loop through the questions
+for (var i = 0; i < addAnswerElement.length; i++) {
+
+	// TODO: Add listeners to the add answer buttons
+	addAnswerElement[i].addEventListener('click', addAnswer(addAnswerElement[i]), false);
+
+}
+
+
+function addAnswer(handle) {
+
+	console.log(handle.parentElement.parentElement.parentElement);
+
+}

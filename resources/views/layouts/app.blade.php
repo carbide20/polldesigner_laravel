@@ -82,7 +82,5 @@
 
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
 
-    <script src="js/pollForm.js"></script>
-
 </body>
 </html>
