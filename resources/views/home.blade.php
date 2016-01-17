@@ -51,13 +51,14 @@
 
                                     <li>
                                     <!-- q1 a1 -->
-                                    {{ Form::label('question1choice1', 'Q1 Answer #1:') }}<br />
-                                    {{ Form::text('question1choice1') }}<br />
+                                    {{ Form::label('question1answer1', 'Q1 Answer #1:') }}<br />
+                                    {{ Form::text('question1answer1') }}<br />
                                     </li>
 
 
                                     <li>
-                                        {{ Form::button('Add Answer', array('class' => 'addAnswer')) }}
+                                        {{ Form::button('Add Answer', array('class' => 'addAnswer', 'id' =>
+                                        'addAnswer1')) }}
                                     </li>
 
                                 </ul>

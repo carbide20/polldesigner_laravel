@@ -83,7 +83,7 @@ document.getElementById("addQuestion").addEventListener("click", function() {
 	// Create the answer input box
 	var input = document.createElement('input');
 	input.type = 'text';
-	input.class = 'answer';
+	input.className = 'answer';
 
 		// Attach the input to the <li>
 		li.appendChild(input);
@@ -94,10 +94,12 @@ document.getElementById("addQuestion").addEventListener("click", function() {
 		// Attach the <li> to the <ul>
 		newAnswer.appendChild(answerLi);
 
-	// Create the answer input box
+	// Create the 'add answer' button
 	var addAnswer = document.createElement('button');
-	addAnswer.class = 'addAnswer';
+	addAnswer.className = 'addAnswer';
+	addAnswer.type = 'button';
 	addAnswer.innerHTML = 'Add Answer';
+	addAnswer.name = 'question' + (lastQuestion + 1);
 
 		// Attach the input to the <li>
 		answerLi.appendChild(addAnswer);
@@ -135,19 +137,76 @@ document.getElementById("addQuestion").addEventListener("click", function() {
 
 
 // Get all question items
-var addAnswerElement = document.getElementsByClassName("addAnswer");
+var addAnswerElement = document.querySelectorAll(".addAnswer");
 
 // Loop through the questions
 for (var i = 0; i < addAnswerElement.length; i++) {
 
-	// TODO: Add listeners to the add answer buttons
-	addAnswerElement[i].addEventListener('click', addAnswer(addAnswerElement[i]), false);
+	// TODO: make sure this works on additional add answer buttons, not just the first
+	addAnswerElement[i].addEventListener('click', function() {
+
+		// Find out what question this belongs to
+		var questionNumber = this.id.split('addAnswer')[1];
+
+		// Find all answer inputs within this question
+		var question = document.getElementById('question' + questionNumber);
+
+		// Get the UL with the answer inputs
+		var answerUl = question.nextElementSibling.nextElementSibling;
+
+		// Get all the answer inputs that exist for the question
+		var inputs = answerUl.getElementsByTagName('input');
+
+		// Find the number of the last answer
+		var lastAnswerNumber;
+		var lastAnswerInput;
+		for (var i = 0; i < inputs.length; i++) {
+			lastAnswerInput = inputs[i];
+			lastAnswerNumber = parseInt(inputs[i].id.split('answer')[1]);
+		}
+
+		// Create the answer input <li>
+		var answerLi = document.createElement('li');
+
+		// Create the answer input label
+		var label = document.createElement('label');
+		label.innerText = 'Q' + questionNumber + ' Answer #' + (lastAnswerNumber + 1) + ':';
+
+			// Attach the <label> to the <li>
+			answerLi.appendChild(label);
+
+		// Create a line break
+		var br = document.createElement('br');
+
+			// Attach the line break to the <li>
+			answerLi.appendChild(br);
+
+		// Create the answer input box
+		var input = document.createElement('input');
+		input.type = 'text';
+		input.className = 'answer';
+
+			// Attach the input to the <li>
+			answerLi.appendChild(input);
+
+		// Attach the <li> to the <ul>
+		insertAfter(answerLi, lastAnswerInput);
+
+
+
+
+	}, false);
 
 }
 
 
 function addAnswer(handle) {
 
+
 	console.log(handle.parentElement.parentElement.parentElement);
 
+}
+
+function insertAfter(newNode, referenceNode) {
+	referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
 }
