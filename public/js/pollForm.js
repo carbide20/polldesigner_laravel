@@ -1,6 +1,9 @@
+var boundAnswers = [];
 
 
-
+/**
+ * Binds an action to the 'Add Question' button
+ */
 var bindQuestionButtons = function() {
 
 	// Get all question items
@@ -23,7 +26,7 @@ var bindQuestionButtons = function() {
 
 	// NOTE:
 	// Here's where I'm building out some HTML, so I've broken the following code into sections to make it less of a
-	// mess to read
+	// mess to read. Stil needs lots of cleanup + refactoring
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -89,6 +92,7 @@ var bindQuestionButtons = function() {
 	var input = document.createElement('input');
 	input.type = 'text';
 	input.className = 'answer';
+	input.id = 'question' + (lastQuestion + 1) + 'answer1';
 
 		// Attach the input to the <li>
 		li.appendChild(input);
@@ -135,21 +139,15 @@ var bindQuestionButtons = function() {
 }
 
 
-var boundAnswers = [];
-
-
-
 /**
  * Loops through all the existing 'Add Answer' buttons, and binds their functionality to click events
  */
 var bindAnswerButtons = function() {
 
-	console.log('bindAnswerButtons called');
-
-	// Get all question items
+	// Get all 'Add Answer' buttons'
 	var addAnswerElement = document.querySelectorAll(".addAnswer");
 
-	// Loop through the questions
+	// Loop through the buttons
 	for (var i = 0; i < addAnswerElement.length; i++) {
 
 		// Make sure we have not already bound this button
@@ -158,29 +156,35 @@ var bindAnswerButtons = function() {
 			// Save this binding to the global array, so we know not to re-bind
 			window.boundAnswers.push(addAnswerElement[i].id);
 
-			// Add an event listener for click events
+			// Add an event listener for click events on our 'Add Answer' button
 			addAnswerElement[i].addEventListener('click', function () {
 
-				// Find out what question this belongs to
+				// Find out what question this button belongs to
 				var questionNumber = this.id.split('addAnswer')[1];
 
-				// Find all answer inputs within this question
+				// Get the question, so we have the full thing
 				var question = document.getElementById('question' + questionNumber);
 
-				// Get the UL with the answer inputs
+				// Get the UL with the answer inputs, inside the question
 				var answerUl = question.nextElementSibling;
 
-				console.log(answerUl); // getting 'add question' button...?
-
-				// Get all the answer inputs that exist for the question
+				// Get all the answer inputs that exist for the question within the UL
 				var inputs = answerUl.getElementsByTagName('input');
 
-				// Find the number of the last answer
+				// These will hold info about the very last answer input within this question,
+				// once we find the last one
 				var lastAnswerNumber;
 				var lastAnswerInput;
+
+				console.log(inputs);
+
+				// Loop through all the inputs. on last iteration, we will have found the last input
 				for (var i = 0; i < inputs.length; i++) {
+
+					// Store the answer input
 					lastAnswerInput = inputs[i];
 					lastAnswerNumber = parseInt(inputs[i].id.split('answer')[1]);
+
 				}
 
 				// Create the answer input <li>
@@ -201,14 +205,24 @@ var bindAnswerButtons = function() {
 
 				// Create the answer input box
 				var input = document.createElement('input');
+				input.id = 'question' + questionNumber + 'answer' + (lastAnswerNumber + 1);
 				input.type = 'text';
 				input.className = 'answer';
 
 				// Attach the input to the <li>
 				answerLi.appendChild(input);
 
+				// Create a line break
+				var br = document.createElement('br');
+
+				// Attach the line break to the <li>
+				answerLi.appendChild(br);
+
 				// Attach the <li> to the <ul>
-				insertAfter(answerLi, lastAnswerInput);
+				insertAfter(answerLi, lastAnswerInput.parentNode.nextSibling);
+
+				// Attach the button after
+				insertAfter(this.parentNode, answerLi);
 
 
 			}, false);
