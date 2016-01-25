@@ -93,6 +93,7 @@ var bindQuestionButtons = function() {
 	input.type = 'text';
 	input.className = 'answer';
 	input.id = 'question' + (lastQuestion + 1) + 'answer1';
+	input.name = 'question' + (lastQuestion + 1) + 'answer1';
 
 		// Attach the input to the <li>
 		li.appendChild(input);

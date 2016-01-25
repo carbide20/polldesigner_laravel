@@ -46,38 +46,38 @@ class PollController extends Controller
 				// Save the poll object
 				$poll->save();
 
-				// Now we are going to look at questions / choices and create those attached to the poll
+				// Now we are going to look at questions / answers and create those attached to the poll
 				foreach ($formdata as $key => $value) {
 
-					// If this is related to questions / choices, let's look further into it
+					// If this is related to questions / answers, let's look further into it
 					if (strpos($key, 'question') !== FALSE) {
 
-						// Check if this is a question choice
-						if (strpos($key, 'choice') !== FALSE) {
+						// Check if this is a question answer
+						if (strpos($key, 'answer') !== FALSE) {
 
 							// Extract the important stuff
-							$choice = explode('choice', $key); // Get the choice number
-							$choice[0] = explode('question', $choice[0])[1]; // Get the question number
+							$answer = explode('answer', $key); // Get the answer number
+							$answer[0] = explode('question', $answer[0])[1]; // Get the question number
 
-							// Create a poll question choice object
-							$choiceObject = new PollQuestionChoice();
+							// Create a poll question answer object
+							$answerObject = new PollQuestionChoice();
 
 							// Look for the question this belongs to
 							foreach($questionArray as $question) {
 
-								// Check to see if this is the question this choice belongs to
-								if ($question['formId'] == $choice[0]) {
+								// Check to see if this is the question this answer belongs to
+								if ($question['formId'] == $answer[0]) {
 
-									// Save the question ID onto the choice
-									$choiceObject->poll_question_id = $question['questionObject']->id;
+									// Save the question ID onto the answer
+									$answerObject->poll_question_id = $question['questionObject']->id;
 
 								}
 
 							}
 
-							// Save the last bits of data to the choice object and save
-							$choiceObject->text = $value;
-							$choiceObject->save();
+							// Save the last bits of data to the answer object and save
+							$answerObject->text = $value;
+							$answerObject->save();
 
 
 						// Otherwise this is a question
@@ -141,11 +141,11 @@ class PollController extends Controller
 				// Get any poll questions attached to the poll
 				$questions = PollQuestion::where('poll_id', $poll->id)->get();
 
-				// Loop through the questions so we can find question choices and answers
+				// Loop through the questions so we can find question answers and answers
 				// TODO: add answer deletion once answers exist
 				foreach($questions as $question) {
 
-					// Delete any question choices that are attached
+					// Delete any question answers that are attached
 					PollQuestionChoice::where('poll_question_id', $question->id)->delete();
 
 					// Delete the question
