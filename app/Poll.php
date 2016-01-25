@@ -15,12 +15,21 @@ class Poll extends Model
 		return $this->belongsTo('App\User');
 	}
 
+
 	/**
 	 * Gets all the questions on this poll
 	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
 	 */
 	public function questions() {
 		return $this->hasMany('App\PollQuestion');
+	}
+
+
+	/**
+	 * Gets the total number of questions attached to this poll
+	 */
+	public function questionCount() {
+		return $this->questions()->count();
 	}
 
 }
